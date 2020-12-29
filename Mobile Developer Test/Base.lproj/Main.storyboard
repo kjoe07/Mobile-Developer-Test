@@ -54,7 +54,7 @@
                         <attributedString key="attributedTitle"/>
                     </refreshControl>
                     <connections>
-                        <segue destination="igQ-yJ-stR" kind="show" id="zcz-9r-ycp"/>
+                        <segue destination="igQ-yJ-stR" kind="show" identifier="web" id="zcz-9r-ycp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2m-29-iNs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -77,18 +77,25 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-Um-fFE">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" systemColor="labelColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bHk-XV-LAy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bHk-XV-LAy" firstAttribute="bottom" secondItem="H5u-JK-xzU" secondAttribute="bottom" id="RHW-oW-IIe"/>
                             <constraint firstAttribute="trailing" secondItem="H5u-JK-xzU" secondAttribute="trailing" id="YOE-6N-Tu2"/>
+                            <constraint firstItem="ez8-Um-fFE" firstAttribute="centerX" secondItem="Qd3-D4-Tkk" secondAttribute="centerX" id="fdJ-rx-Vaj"/>
                             <constraint firstItem="H5u-JK-xzU" firstAttribute="leading" secondItem="bHk-XV-LAy" secondAttribute="leading" id="sHw-Rv-k5U"/>
+                            <constraint firstItem="ez8-Um-fFE" firstAttribute="centerY" secondItem="Qd3-D4-Tkk" secondAttribute="centerY" id="tZg-hq-OxV"/>
                             <constraint firstItem="H5u-JK-xzU" firstAttribute="top" secondItem="bHk-XV-LAy" secondAttribute="top" id="zyo-wZ-O6p"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nZT-E7-Kna"/>
                     <connections>
+                        <outlet property="spinner" destination="ez8-Um-fFE" id="AST-Rw-uIy"/>
                         <outlet property="web" destination="H5u-JK-xzU" id="2MF-Cz-Mtw"/>
                     </connections>
                 </viewController>
@@ -116,6 +123,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

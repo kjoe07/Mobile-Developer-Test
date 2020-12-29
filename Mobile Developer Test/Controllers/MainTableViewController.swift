@@ -27,9 +27,15 @@ class MainTableViewController: UITableViewController {
         self.refresh.addTarget(self, action: #selector(self.loadData), for: UIControl.Event.valueChanged)
         print("sended")
         self.loadData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,14 +58,21 @@ class MainTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if vm.list[indexPath.row].storyUrl != nil {
+            self.performSegue(withIdentifier: "web", sender: indexPath.row)
+        }else{
+            showAlert()
+        }
+    }
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let vc = segue.destination as! WebViewController
+        vc.url = vm.list[sender as! Int].storyUrl ?? ""
     }
 
 
@@ -67,5 +80,11 @@ class MainTableViewController: UITableViewController {
         print("load data")
         self.tableView.refreshControl?.beginRefreshing()
         vm.loadData()
+    }
+    func showAlert(){
+        let alert = UIAlertController(title: "Ups!", message: "no valid url found", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }
