@@ -11,9 +11,10 @@ class MainTableViewController: UITableViewController {
     
     let utility = NetworkReachability()
     var vm: MainViewModel!
+    let refresh = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.refreshControl = refresh
         vm = MainViewModel(service: RemoteLoaderWithLocalFeedBack(remote: RemoteListService(loader: CustomNetWorkLoader(session: URLSession.shared), resquetable: Resquetable()), local: LocalListLoader(), monitor: utility))
         vm.success = { [weak self] in
             DispatchQueue.main.async {
@@ -23,7 +24,7 @@ class MainTableViewController: UITableViewController {
             }
         }
         print("send to load with refresh")
-        self.tableView.refreshControl?.addTarget(self, action: #selector(self.loadData), for: UIControl.Event.valueChanged)
+        self.refresh.addTarget(self, action: #selector(self.loadData), for: UIControl.Event.valueChanged)
         print("sended")
         self.loadData()
         
@@ -32,7 +33,7 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.list?.count ?? 0
+        return vm.list.count
     }
 
     
@@ -47,7 +48,7 @@ class MainTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            vm.list?.remove(at: indexPath.row)
+            vm.list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

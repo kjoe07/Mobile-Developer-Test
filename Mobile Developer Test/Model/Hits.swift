@@ -11,10 +11,10 @@ struct Hits : Codable {
 	let title : String?
 	let url : String?
 	let author : String?
-	let points : String?
+	let points : Int?
 	let storyText : String?
 	let commentText : String?
-	let numComments : String?
+	let numComments : Int?
 	let storyId : Int?
 	let storyTitle : String?
 	let storyUrl : String?
@@ -50,10 +50,10 @@ struct Hits : Codable {
 		title = try values.decodeIfPresent(String.self, forKey: .title)
 		url = try values.decodeIfPresent(String.self, forKey: .url)
 		author = try values.decodeIfPresent(String.self, forKey: .author)
-		points = try values.decodeIfPresent(String.self, forKey: .points)
+		points = try values.decodeIfPresent(Int.self, forKey: .points)
 		storyText = try values.decodeIfPresent(String.self, forKey: .storyText)
 		commentText = try values.decodeIfPresent(String.self, forKey: .commentText)
-		numComments = try values.decodeIfPresent(String.self, forKey: .numComments)
+		numComments = try values.decodeIfPresent(Int.self, forKey: .numComments)
 		storyId = try values.decodeIfPresent(Int.self, forKey: .storyId)
 		storyTitle = try values.decodeIfPresent(String.self, forKey: .storyTitle)
 		storyUrl = try values.decodeIfPresent(String.self, forKey: .storyUrl)
